@@ -7,7 +7,7 @@ from .models import *
 
 # Create your views here.
 def home(request):
-    return render(request, 'car/home.html')
+    return render(request, 'car/home.html'
 
 def Try(request):
     return render(request, 'car/BookingDetails.html')
