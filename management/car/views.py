@@ -33,4 +33,3 @@ def admin(request):
 
     return render(request, 'car/AdminLogin.html')
 
-
