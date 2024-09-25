@@ -1,0 +1,54 @@
+<style>
+    form{
+        background-color: white;
+        width: 50%;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 50px;
+    }
+    label{
+        color: black;
+        font-size: 20px;
+    }
+    input{
+        display: block;
+        height: 40px;
+        width: 100%;
+        background-color: rgba(255,255,255,0.07);
+        border-radius: 3px;
+        padding: 0 10px;
+        margin-top: 2px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    button{
+        margin-top: 14px;
+        width: 100%;
+        background-color: #ffffff;
+        color: #080710;
+        padding: 15px 0;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+
+<form action="{% url 'INT' %}" method="post">
+ 
+    {% csrf_token %}
+
+    <label for="model_name">Model Name</label>
+    <input type="text" id="model_name" name="model_name" placeholder="Model Name" required>
+
+    <label for="price">Price</label>
+    <input type="text" id="price" name="price" placeholder="Price" required>
+
+    <label for="color">Color</label>
+    <input type="text" id="color" name="color" placeholder="Color" required>
+
+    <button type="submit">Add Car</button>
+
+</form>
