@@ -49,9 +49,9 @@ def intro(request):
 
 def home(request):
     cars = Cars.objects.all()
-    # for c in cars:
-    #     print(c.model_name)
-    #     print(c.color)
+      for c in cars:
+          print(c.model_name)
+          print(c.color)
     print(cars)
     return render(request, 'car/home.html')
 def Drive(request):
