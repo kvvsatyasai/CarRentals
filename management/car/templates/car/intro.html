@@ -1,64 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">    
+    <title>Rent-a-Ride</title>
+</head>
+<body class="bg-gray-100">
 
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">    
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css"> 
+    <!-- Header Section -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-between">
+            <a href="#" class="flex title-font font-medium items-center text-gray-900">
+                <span class="ml-3 text-2xl font-bold">Rent-a-Ride</span>
+            </a>
+            <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+                <p class="text-gray-700">Welcome, {{request.user}}!</p>
+            </nav>
+            <a href="{% url 'profile'  %}" class="inline-flex items-center bg-slate-900 text-white py-2 px-4 rounded-lg hover:bg-lime-500 hover:scale-110 transition-transform duration-300">Profile</a>
+        </div>
+    </header>
 
-<style>
-    a{
-        color: black;
-        text-align: center;
-        display: block;
-        margin-top: 20px;
-        font-size: 14px;
-        font-weight: 300;
-        text-decoration: none;  
-    }
-    div{
-        background-color: white;
-        width: 50%;
-        margin: auto;
-        padding: 10px;
-        border-radius: 10px;
-        margin-top: 50px;
-    }
-</style>
-<body>
-      
-  <header class="text-gray-600 body-font">
-    <div class="container mx-auto flex flex-wrap p-0 flex-col md:flex-row items-center">
-      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-        
-        <span class="ml-3 text-xl">Rent-a-Ride</span>
-      </a>
-      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-        <p class="welcome"> Welcome, {{request.user}}! </p>  
-      </nav>
-      <a href="{% url 'profile'  %}" class="inline-flex items-center bg-slate-950 border-0 py-1 px-3 focus:outline-none hover:bg-lime-500 hover:scale-110 transition duration-500 ease-in-out rounded text-gray-50 px-9">Profile
-      </a>
+    <!-- Car List Section -->
+    <section class="container mx-auto mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for c in car %}
+            <div class="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <h2 class="text-lg font-bold mb-2">Model: {{c.model_name}}</h2>
+                <p class="text-gray-600">Price: {{c.price}}</p>
+                <p class="text-gray-600">Color: {{c.color}}</p>
+                <a href="{% url 'bookform' %}" class="inline-flex mt-4 items-center bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-gray-700 hover:scale-110 transition-transform duration-300">Book Car</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Admin Section (Add Car) -->
+    {% if request.user.is_staff %}
+    <div class="container mx-auto mt-8 text-center">
+        <a href="{% url 'addCar' %}" class="inline-flex items-center bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Add Car</a>
     </div>
-  </header>
-
-      
-    {% for c in car %}
-      <div>
-        {{c.id}}. 
-       {{c.model_name}} <br>
-       &nbsp;&nbsp;&nbsp;&nbsp;{{c.price}} <br>
-       &nbsp;&nbsp;&nbsp;&nbsp;{{c.color}} <br>
-     <a class="inline-flex py-3 px-5 rounded-lg items-center lg:ml-4 md:ml-0 ml-3 md:mt-3 mt-0 lg:mt-0 hover:bg-gray-900 hover:text-slate-50  hover:scale-110 transition duration-500 ease-in-out" href="{%  url 'bookform' %}">Book Car</a>
-    </div>
-    {% endfor %}
-
-
-  {% if request.user.is_staff %}
-    <a href="{% url 'addCar' %}">Add Car</a>
- {% endif %}
-
-     
-</div>
+    {% endif %}
 
 </body>
+</html>
