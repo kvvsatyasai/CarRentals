@@ -6,10 +6,13 @@ import uuid
 from .models import *
 from .decorators import *
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils.text import slugify
+
+
 
 
 # Create your views here.
-
 def admin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -26,7 +29,7 @@ def admin(request):
             
     return render(request, 'car/AdminLogin.html')
 
-
+@unauthenticated_user
 def SignUp(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -68,11 +71,15 @@ def home(request):
     print(cars)
     return render(request, 'car/home.html')
 
-
+@unauthenticated_user
 def addCar(request):
     return render(request, 'car/addCar.html')
 
 
+def bookCar(request,car_id):
+    return render(request,'bookCar.html')
+
+@unauthenticated_user
 def profile(request):
     return render(request, 'car/profile.html')
 
@@ -80,7 +87,7 @@ def Drive(request):
     return render(request, 'car/drive.html')
 
 
-
+@unauthenticated_user
 def handleLogout(request):
     logout(request)
     request.session.flush() #remove session data from database
@@ -90,12 +97,12 @@ def handleLogout(request):
 def contact(request):
     return render(request, 'car/ContactUs.html')
 
-
+@unauthenticated_user
 def bookingform(request):
 
     return render(request, 'car/form.html')
 
-
+@unauthenticated_user
 def details(request):
     user_code = str(uuid.uuid4()).replace("-", "")[:8]  # 8-character alphanumeric string
     print(user_code)
